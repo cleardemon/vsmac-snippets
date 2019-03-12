@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeTemplates version="3.0">
+  <CodeTemplate version="2.0">
+    <Header>
+      <_Group>C#</_Group>
+      <Version />
+      <MimeType>text/x-csharp</MimeType>
+      <Shortcut>bpropc</Shortcut>
+      <_Description>Bindable property with change callback</_Description>
+      <TemplateType>Expansion</TemplateType>
+    </Header>
+    <Variables>
+      <Variable name="name">
+        <Default>PropertyName</Default>
+        <_ToolTip>Name of the property to create</_ToolTip>
+      </Variable>
+      <Variable name="type">
+        <Default>PropertyReturnType</Default>
+        <_ToolTip>Return type of the property</_ToolTip>
+      </Variable>
+      <Variable name="parentType" isEditable="false">
+        <Default>ParentClassType</Default>
+        <_ToolTip>Class that contains the property.</_ToolTip>
+        <Function>GetCurrentClassName()</Function>
+      </Variable>
+    </Variables>
+    <Code><![CDATA[public static readonly BindableProperty $name$Property = BindableProperty.Create(nameof($name$), typeof($type$), typeof($parentType$), null,
+        propertyChanged: $name$PropertyChanged);
+
+public $type$ $name$
+{
+    get => ($type$)GetValue($name$Property);
+    set => SetValue($name$Property, value);
+}
+
+static void $name$PropertyChanged(BindableObject bindable, object oldValueObj, object newValueObj)
+{
+    $parentType$ obj = bindable as $parentType$;
+    $type$ oldValue = oldValueObj as $type$;
+    $type$ newValue = newValueObj as $type$;
+    
+}
+]]></Code>
+  </CodeTemplate>
+</CodeTemplates>
